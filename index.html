@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💌 Untuk Kamu</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ffb6d9, #ffe9f4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        overflow: hidden;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: clamp(20px, 5vw, 40px);
+        border-radius: 25px;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 15px 40px rgba(255, 77, 136, 0.2);
+        position: relative;
+      }
+
+      h1 {
+        color: #ff4d88;
+        font-size: clamp(22px, 5vw, 28px);
+      }
+
+      p {
+        color: #555;
+        font-size: clamp(15px, 4vw, 18px);
+        line-height: 1.6;
+      }
+
+      .buttons {
+        margin-top: 30px;
+        position: relative;
+        height: 120px;
+      }
+
+      button {
+        padding: 12px 24px;
+        font-size: clamp(14px, 4vw, 18px);
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        transition: 0.2s;
+        min-width: 140px;
+      }
+
+      #yes {
+        background-color: #ff4d88;
+        color: white;
+        box-shadow: 0 0 15px rgba(255, 77, 136, 0.5);
+      }
+
+      #yes:hover {
+        transform: scale(1.05);
+      }
+
+      #no {
+        background-color: #b0b0b0;
+        color: white;
+        position: absolute;
+        left: 55%;
+        top: 0;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      img {
+        width: 100%;
+        max-width: 250px;
+        margin: 20px auto;
+        border-radius: 15px;
+        display: block;
+      }
+
+      .message {
+        font-size: clamp(15px, 4vw, 18px);
+        color: #ff4d88;
+        margin-top: 10px;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 24px;
+        animation: float 3s linear forwards;
+      }
+
+      @keyframes float {
+        from {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-300px);
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .buttons {
+          height: 160px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h1>Maafin Aku Ya, Cantik ❤️</h1>
+      <p>
+        Aku tahu mungkin tadi aku bikin kamu kesel…  
+        Dan aku nggak suka kalau kita lagi nggak baik-baik aja 🥺  
+        Karena kamu itu penting banget buat aku.<br /><br />
+        Jadi… mau nggak kita baikan sambil main game bareng?
+      </p>
+
+      <div class="buttons">
+        <button id="yes">Yuk Mabar 💕🎮</button>
+        <button id="no">Masih Kesel 😳</button>
+      </div>
+
+      <div id="yesContent" class="hidden">
+        <img
+          src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+          alt="cute gif"
+        />
+        <p class="message">
+          Makasih ya udah maafin aku 🥹  
+          Yuk kita main bareng, ketawa bareng,  
+          dan balikin mood jadi happy lagi 💖  
+          Karena yang paling aku suka itu…  
+          bukan cuma gamenya, tapi kamu 🎮✨
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const noBtn = document.getElementById("no");
+      const yesBtn = document.getElementById("yes");
+      const yesContent = document.getElementById("yesContent");
+      const buttons = document.querySelector(".buttons");
+
+      function moveButton() {
+        const maxX = buttons.offsetWidth - noBtn.offsetWidth;
+        const maxY = buttons.offsetHeight - noBtn.offsetHeight;
+
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+      }
+
+      // Desktop hover
+      noBtn.addEventListener("mouseover", moveButton);
+
+      // HP / Tablet touch
+      noBtn.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+        moveButton();
+      });
+
+      // Kalau tetap ke-click, tetap kabur
+      noBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        moveButton();
+      });
+
+      yesBtn.addEventListener("click", () => {
+        buttons.classList.add("hidden");
+        yesContent.classList.remove("hidden");
+
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerText = "💗";
+          heart.style.left = Math.random() * window.innerWidth + "px";
+          heart.style.top = window.innerHeight + "px";
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 3000);
+        }, 300);
+      });
+    </script>
+  </body>
+</html>
